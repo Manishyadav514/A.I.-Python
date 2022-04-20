@@ -1,11 +1,7 @@
-import pickle
 import socket
-import struct
 import tkinter as tk
 from tkinter import *
 import easygui  # to open the firebox
-import numpy as np
-from PIL import Image
 
 ClientSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 ClientSocket.connect(('127.0.0.1', 7008))  # connects the client
@@ -28,18 +24,7 @@ def tkinter_pop_box():
             print("Add a Valid Image File")
             tk1.after(1000, lambda: tk1.destroy())
             tkinter_pop_box()
-        image = Image.open(ImagePath)
-        image_array = np.asarray(image)
-
-        # send pickle
-        data = pickle.dumps(image_array)
-        size = len(data)
-        size_in_4_bytes = struct.pack('I', size)
-        ClientSocket.send(size_in_4_bytes)
-        ClientSocket.send(data)
-
-
-
+        ClientSocket.send((str(ImagePath)).encode())
         tk1.after(1000, lambda: tk1.destroy())
     tk1.geometry('800x800')
     tk1.title('Upload Your Image to See the Magic')

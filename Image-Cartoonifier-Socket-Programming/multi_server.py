@@ -1,14 +1,14 @@
 import os
 import socket
-import struct
-import threading
 import tkinter as tk
-from threading import Thread
 from tkinter import *
 import cv2  # for image processing
 import matplotlib.pyplot as plt
-from PIL import Image
-import pickle
+from PIL import ImageTk, Image
+import time
+import threading
+from threading import Thread
+
 
 # instantiate server's socket
 ServerSocket = socket.socket(family=socket.AF_INET, type=socket.SOCK_STREAM)
@@ -135,19 +135,8 @@ class clientThread(Thread):
         ip_address = ClientSocket.recv(1024).decode()
         reply = "Upload Your Image!"
         ClientSocket.send(reply.encode())
-
-        # receiving numpy array using pickle, also tackled "pickle truncated" problem.
-        size_in_4_bytes = ClientSocket.recv(1024)
-        size = struct.unpack('I', size_in_4_bytes)
-        size = size[0]
-        data = ClientSocket.recv(size)
-        data_array = pickle.loads(data)
-        print("Received image as a numpy array", type(data_array))
-        # Server locally saves the numpy array into image
-        Image.fromarray(data_array).save("client.png")
-        print("Image Saved on Server!")
-        Image_Path = "client.png"
-        Image_Changer(Image_Path)
+        Image_Path = ClientSocket.recv(1024).decode()
+        print("Your image is saved in the directory", Image_Path)
         Image_Changer(Image_Path)
         self.ClientSocket.close()
 
