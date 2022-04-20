@@ -1,0 +1,4 @@
+Modules require to run the program:
+opencv-contrib-python
+imutils
+numpy

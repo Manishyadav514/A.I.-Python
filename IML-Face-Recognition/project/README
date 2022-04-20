@@ -1,0 +1,27 @@
+======================================================================
+		FACE RECOGNITION
+======================================================================
+A real time face recognition machine learning project that recognise people from webcam.
+The whole procedure was divide into two parts:
+1) Face Identification:
+        We used Haarcascade classifier to perform face identification job. It basically captures frame from video and detects the face in it.
+2) Face Recognition:
+        We used LBPH (Local Binary Pattern Histogram) algorithm which recognize the input image and predict the person face in real time.
+======================================================================
+        CREATE DATASET
+======================================================================
+To generate the dataset for a new user whose face we want our model to recognize.
+The user needs to click on the camera pop box and
+press c to capture his/her image. To quit the pop window, when there are
+enough images for detection, need to press “q”
+======================================================================
+
+
+
+
+
+
+
+References:
+1. https://towardsdatascience.com/face-detection-with-haar-cascade-727f68dafd08
+2.
